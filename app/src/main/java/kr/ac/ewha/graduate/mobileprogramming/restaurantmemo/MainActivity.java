@@ -5,8 +5,11 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.ListView;
 
 public class MainActivity extends Activity {
+//    RestaurantAdapter restaurantAdapter;
+    ListView restaurantListView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,6 +21,8 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
 
         setContentView(R.layout.activity_main);
+
+        restaurantListView = (ListView) findViewById(R.id.restaurantListView);
     }
 
     public void addRestaurant(View view) {
