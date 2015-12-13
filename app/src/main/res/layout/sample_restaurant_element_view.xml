@@ -1,0 +1,72 @@
+<!--<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+    <!--xmlns:app="http://schemas.android.com/apk/res/kr.ac.ewha.graduate.mobileprogramming.restaurantmemo"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent">-->
+
+    <!--<kr.ac.ewha.graduate.mobileprogramming.restaurantmemo.RestaurantElementView-->
+        <!--android:layout_width="300dp"-->
+        <!--android:layout_height="300dp"-->
+        <!--android:background="#ccc"-->
+        <!--android:paddingBottom="40dp"-->
+        <!--android:paddingLeft="20dp"-->
+        <!--app:exampleColor="#33b5e5"-->
+        <!--app:exampleDimension="24sp"-->
+        <!--app:exampleDrawable="@android:drawable/ic_menu_add"-->
+        <!--app:exampleString="Hello, RestaurantElementView" />-->
+
+<!--</FrameLayout>-->
+
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res/kr.ac.ewha.graduate.mobileprogramming.restaurantmemo"
+    android:orientation="horizontal" android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical">
+
+    <CheckBox android:id="@+id/restaurantCheckbox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:checked="false"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="false"
+        android:layout_alignParentBottom="false"
+        android:layout_alignWithParentIfMissing="false"
+        android:layout_centerInParent="true" />
+
+    <!-- image select view -->
+
+    <ImageView
+        android:id="@+id/selectImage" android:layout_alignParentRight="true"
+        android:layout_width="wrap_content" android:layout_height="50dp"
+        android:layout_marginLeft="6dp" android:layout_marginRight="6dp"
+        android:gravity="center_vertical|center_horizontal|right" android:layout_weight="2"
+        android:src="@drawable/selectimage"
+        android:layout_centerInParent="true"
+        android:onClick="selectPicture"
+        android:tint="#bbbbbb"
+        android:tintMode="screen" />
+
+    <EditText
+        android:id="@+id/restaurantNameEditText"
+        android:layout_width="fill_parent" android:layout_height="wrap_content"
+        android:layout_marginLeft="6dp"
+        android:layout_toRightOf="@id/restaurantCheckbox" android:layout_toLeftOf="@id/selectImage"
+        android:gravity="center_vertical" android:singleLine="true"
+        android:hint="Restaurant name"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <RatingBar
+        android:id="@+id/myRatingBar"
+        style="?android:attr/ratingBarStyleSmall"
+        android:layout_width="wrap_content" android:layout_height="wrap_content"
+        android:numStars="5"
+        android:clickable="true"
+        android:layout_marginLeft="6dp"
+        android:layout_marginBottom="10dp"
+        android:layout_below="@+id/restaurantNameEditText"
+        android:layout_alignLeft="@+id/restaurantNameEditText"
+        android:layout_alignStart="@+id/restaurantNameEditText" />
+
+</RelativeLayout>
+
