@@ -4,23 +4,31 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RatingBar;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
 public class MainActivity extends Activity {
+    private Toast toast;
+    private long backKeyPressedTime = 0;
+
     ListView restaurantListView;
     private ArrayList<RestaurantInfo> mRestaurantList;
     private ArrayAdapter<RestaurantInfo> mRestaurantAdapterList;
+
+    RestaurantAdapter restaurantAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,9 +39,22 @@ public class MainActivity extends Activity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_main);
 
-        setContentView(R.layout.activity_main);
-
         restaurantListView = (ListView) findViewById(R.id.restaurantListView);
+
+
+        restaurantAdapter = new RestaurantAdapter(this, mRestaurantList);
+        restaurantListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                Toast.makeText(MainActivity.this, "Clicked at " + position, Toast.LENGTH_LONG).show();
+
+                // set onClick for the selectPicture
+                
+
+            }
+        });
+        restaurantListView.setAdapter(restaurantAdapter);
     }
 
     public void addRestaurant(View view) {
@@ -82,7 +103,32 @@ public class MainActivity extends Activity {
         });
 
         dialog.show();
+
+
+
+    }
+
+    public void tempButton(View view) {
+        Intent intent = new Intent(this, SelectImageActivity.class);
+        startActivity(intent);
     }
 
 
+    @Override
+    public void onBackPressed() {
+        if (System.currentTimeMillis() > backKeyPressedTime + 2000) {
+            backKeyPressedTime = System.currentTimeMillis();
+            showGuide();
+            return;
+        }
+        if (System.currentTimeMillis() <= backKeyPressedTime + 2000) {
+            super.onBackPressed();
+            toast.cancel();
+        }
+    }
+
+    private void showGuide() {
+        toast = Toast.makeText(MainActivity.this, "\'뒤로\'버튼을 한번 더 누르시면 종료됩니다.", Toast.LENGTH_SHORT);
+        toast.show();
+    }
 }
