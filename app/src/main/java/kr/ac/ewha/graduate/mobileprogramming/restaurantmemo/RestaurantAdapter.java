@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RatingBar;
@@ -76,6 +77,7 @@ public class RestaurantAdapter extends ArrayAdapter<RestaurantInfo> {
     @Override
     public View getView(int pos, View convertView, ViewGroup parent)
     {
+        CheckBox checkBox = null;
         TextView textView = null;
         RatingBar ratingBar = null;
         ImageView imageView = null;
@@ -83,6 +85,7 @@ public class RestaurantAdapter extends ArrayAdapter<RestaurantInfo> {
 
         if(convertView == null){
             convertView = mInflater.inflate(R.layout.sample_restaurant_element_view, parent, false);
+            checkBox = (CheckBox)convertView.findViewById(R.id.restaurantCheckbox);
             textView = (TextView)convertView.findViewById(R.id.restaurantNameEditText);
             ratingBar = (RatingBar)convertView.findViewById(R.id.myRatingBar);
             ratingBar.setIsIndicator(false);
@@ -99,6 +102,7 @@ public class RestaurantAdapter extends ArrayAdapter<RestaurantInfo> {
             imageView.setTag(new Integer(pos));
 
             holder = new CustomHolder();
+            holder.mCheckBox = checkBox;
             holder.mTextView = textView;
             holder.mRatingBar = ratingBar;
 
@@ -111,11 +115,13 @@ public class RestaurantAdapter extends ArrayAdapter<RestaurantInfo> {
         {
             holder = new CustomHolder();
             holder = (CustomHolder)convertView.getTag();
+            checkBox = holder.mCheckBox;
             textView = holder.mTextView;
             ratingBar = holder.mRatingBar;
             imageView = holder.mImageView;
         }
 
+        checkBox.setChecked(mData.get(pos).IsChecked());
         textView.setText(mData.get(pos).getName());
         ratingBar.setRating(mData.get(pos).getScore());
 

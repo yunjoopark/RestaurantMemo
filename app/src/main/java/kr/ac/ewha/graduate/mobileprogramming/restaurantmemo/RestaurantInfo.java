@@ -73,6 +73,8 @@ public class RestaurantInfo implements Parcelable{
         this.mScore = newScore;
     }
 
+    public boolean IsChecked() { return misChecked; }
+
     public String getName() {
         return mName;
     }
