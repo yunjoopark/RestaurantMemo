@@ -25,10 +25,8 @@ public class MainActivity extends Activity {
     private long backKeyPressedTime = 0;
 
     ListView restaurantListView;
-    private ArrayList<RestaurantInfo> mRestaurantList;
-    private ArrayAdapter<RestaurantInfo> mRestaurantAdapterList;
 
-    RestaurantAdapter restaurantAdapter;
+    RestaurantAdapter mAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,8 +39,11 @@ public class MainActivity extends Activity {
 
         restaurantListView = (ListView) findViewById(R.id.restaurantListView);
 
+        /// adapter 생성 및 등록
+        mAdapter = new RestaurantAdapter(this);
+        restaurantListView.setAdapter(mAdapter);
 
-        restaurantAdapter = new RestaurantAdapter(this, mRestaurantList);
+        /// ListView click Listener 등록
         restaurantListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -50,11 +51,10 @@ public class MainActivity extends Activity {
                 Toast.makeText(MainActivity.this, "Clicked at " + position, Toast.LENGTH_LONG).show();
 
                 // set onClick for the selectPicture
-                
 
             }
         });
-        restaurantListView.setAdapter(restaurantAdapter);
+
     }
 
     public void addRestaurant(View view) {
@@ -81,18 +81,14 @@ public class MainActivity extends Activity {
         rate.setRating((float) 3);       // 처음 별을 몇개로 표시할 것인가
         inputLayout.addView(rate);
 
-        //final EditText scoreBox = new EditText(this);
-        //scoreBox.setHint("restaurantScore");
-        //layout.addView(scoreBox);
-
         dialog.setView(inputLayout);
 
         dialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                newRes.setName(nameBox.getText().toString());
-                newRes.setScore(rate.getRating());
-                //newRes.setScore(Integer.parseInt(scoreBox.getText().toString()));
+                String name = nameBox.getText().toString();
+                float score = rate.getRating();
+                mAdapter.addItem(name, score);
             }
         });
         dialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
