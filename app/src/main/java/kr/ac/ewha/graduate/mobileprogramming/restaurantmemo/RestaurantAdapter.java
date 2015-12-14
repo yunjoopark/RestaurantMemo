@@ -1,13 +1,18 @@
 package kr.ac.ewha.graduate.mobileprogramming.restaurantmemo;
 
 import android.content.Context;
+import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -73,6 +78,7 @@ public class RestaurantAdapter extends ArrayAdapter<RestaurantInfo> {
     {
         TextView textView = null;
         RatingBar ratingBar = null;
+        ImageView imageView = null;
         CustomHolder holder = null;
 
         if(convertView == null){
@@ -80,9 +86,30 @@ public class RestaurantAdapter extends ArrayAdapter<RestaurantInfo> {
             textView = (TextView)convertView.findViewById(R.id.restaurantNameEditText);
             ratingBar = (RatingBar)convertView.findViewById(R.id.myRatingBar);
 
+
+            imageView = (ImageView) convertView.findViewById(R.id.selectImage);
+            imageView.setTag(new Integer(pos));
+            imageView.setOnClickListener(new View.OnClickListener() {
+
+                @Override
+                public void onClick(View view) {
+//                    Toast.makeText(context, "ImageView clicked for the row = " + view.getTag().toString(), Toast.LENGTH_SHORT).show();
+
+                    Log.d("onItemClick", "ImageView clicked for the row = " + view.getTag().toString());
+                    Intent intent = new Intent(context, SelectImageActivity.class);
+                    String restaurantName = mData.get(Integer.parseInt(view.getTag().toString())).getName();
+                    String restaurantScore = Float.toString(mData.get(Integer.parseInt(view.getTag().toString())).getScore());
+                    intent.putExtra("name", restaurantName);
+                    intent.putExtra("score", restaurantScore);
+                    context.startActivity(intent);
+                }
+            });
+
             holder = new CustomHolder();
             holder.mTextView = textView;
             holder.mRatingBar = ratingBar;
+
+            holder.mImageView = imageView;
 
             convertView.setTag(holder);
 
@@ -93,6 +120,7 @@ public class RestaurantAdapter extends ArrayAdapter<RestaurantInfo> {
             holder = (CustomHolder)convertView.getTag();
             textView = holder.mTextView;
             ratingBar = holder.mRatingBar;
+            imageView = holder.mImageView;
         }
 
         textView.setText(mData.get(pos).getName());

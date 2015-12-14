@@ -78,6 +78,7 @@ public class SelectImageActivity extends Activity {
             editor.putString("uri_" + restaurantNameStr, selectedImageUri.toString());
             editor.commit();
 
+            Log.d("restaurant Name String", restaurantNameStr);
             Log.d("uri", selectedImageUri.toString());
         }
     }

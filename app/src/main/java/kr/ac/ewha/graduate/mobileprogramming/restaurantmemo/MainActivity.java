@@ -60,17 +60,7 @@ public class MainActivity extends Activity {
         mAdapter = new RestaurantAdapter(this, mRestaurantArray);
         restaurantListView.setAdapter(mAdapter);
 
-        /// ListView click Listener 등록
-        restaurantListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                Toast.makeText(MainActivity.this, "Clicked at " + position, Toast.LENGTH_LONG).show();
-
-                // set onClick for the selectPicture
-
-            }
-        });
 
         /**
          * ListView의 Item을 롱클릭 할때 호출 ( 선택한 아이템의 DB 컬럼과 Data를 삭제 한다. )
@@ -173,17 +163,6 @@ public class MainActivity extends Activity {
 
         dialog.show();
     }
-
-    public void selectImage(View view) {
-        Intent intent = new Intent(this, SelectImageActivity.class);
-        String restaurantName = ((EditText) view.getRootView().findViewById(R.id.restaurantNameEditText)).getText().toString();
-        String restaurantScore = Float.toString(((RatingBar) view.getRootView().findViewById(R.id.myRatingBar)).getRating());
-        intent.putExtra("name", restaurantName);
-        intent.putExtra("score", restaurantScore);
-
-        startActivity(intent);
-    }
-
 
     @Override
     public void onBackPressed() {

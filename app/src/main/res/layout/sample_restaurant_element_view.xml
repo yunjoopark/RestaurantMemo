@@ -43,7 +43,6 @@
         android:gravity="center_vertical|center_horizontal|right" android:layout_weight="2"
         android:src="@drawable/selectimage"
         android:layout_centerInParent="true"
-        android:onClick="selectImage"
         android:tint="#bbbbbb"
         android:tintMode="screen" />
 
