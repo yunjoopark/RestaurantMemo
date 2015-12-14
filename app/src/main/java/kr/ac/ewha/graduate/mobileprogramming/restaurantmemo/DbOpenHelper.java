@@ -58,18 +58,27 @@ public class DbOpenHelper {
         return cursor;
     }
 
-    // Insert
-    public void insertColumn(String name, float score) {
-        String resName = name;
-        String resScore = Float.toString(score);
-        String sql = "insert into restaurant values(null, '" + resName + "', " + resScore + ", 0);";
+//    // Insert
+//    public void insertColumn(String name, float score) {
+//        String resName = name;
+//        String resScore = Float.toString(score);
+//        String sql = "insert into restaurant values(null, '" + resName + "', " + resScore + ", 0);";
+//
+//        mDB.execSQL(sql);
+//    }
 
-        mDB.execSQL(sql);
+    // Insert DB
+    public long insertColumn(String name, float score){
+        ContentValues values = new ContentValues();
+        values.put(Databases.CreateDB.NAME, name);
+        values.put(Databases.CreateDB.SCORE, Float.toString(score));
+        values.put(Databases.CreateDB.CHECKED, "0");
+        return mDB.insert(Databases.CreateDB._TABLENAME, null, values);
     }
 
     // Delete
     public boolean deleteColumn(long id){
-        return mDB.delete(Databases.CreateDB._TABLENAME, "_id="+id, null) > 0;
+        return mDB.delete(Databases.CreateDB._TABLENAME, "_id = " + id, null) > 0;
     }
 
     // Update DB
@@ -78,5 +87,10 @@ public class DbOpenHelper {
         values.put(Databases.CreateDB.NAME, name);
         values.put(Databases.CreateDB.SCORE, Float.toString(score));
         return mDB.update(Databases.CreateDB._TABLENAME, values, "_id=" + id, null) > 0;
+    }
+
+    // Delete All data
+    public void deleteAll() {
+        mDB.execSQL("delete from restaurant");
     }
 }

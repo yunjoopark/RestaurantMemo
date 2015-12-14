@@ -61,6 +61,16 @@ public class MainActivity extends Activity {
         restaurantListView.setAdapter(mAdapter);
 
 
+        restaurantListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Toast.makeText(getApplicationContext(), "" + position, Toast.LENGTH_SHORT).show();//                Toast.makeText(
+//                        getApplicationContext(),
+//                        "ITEM CLICK = " + position,
+//                        Toast.LENGTH_SHORT
+//                ).show();
+            }
+        });
 
         /**
          * ListView의 Item을 롱클릭 할때 호출 ( 선택한 아이템의 DB 컬럼과 Data를 삭제 한다. )
@@ -138,7 +148,7 @@ public class MainActivity extends Activity {
         rate.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT
                 , ViewGroup.LayoutParams.WRAP_CONTENT));
         rate.setNumStars(5);
-        rate.setStepSize((float) 0.5);   // 별 색을 몇개씩 올릴 것인가
+        rate.setStepSize((float) 1);   // 별 색을 몇개씩 올릴 것인가
         rate.setRating((float) 3);       // 처음 별을 몇개로 표시할 것인가
         inputLayout.addView(rate);
 
@@ -149,9 +159,10 @@ public class MainActivity extends Activity {
             public void onClick(DialogInterface dialog, int which) {
                 String name = nameBox.getText().toString();
                 float score = rate.getRating();
-                mAdapter.addItem(name, score);
 
                 mDbOpenHelper.insertColumn(name, score);
+                mAdapter.addItem(name, score);
+
             }
         });
         dialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {

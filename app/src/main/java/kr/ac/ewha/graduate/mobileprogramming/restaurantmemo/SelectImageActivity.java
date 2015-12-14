@@ -55,10 +55,11 @@ public class SelectImageActivity extends Activity {
         restaurantName.setText(restaurantNameStr);
         restaurantName.setGravity(Gravity.CENTER);
 
-        String path = sharedPreferences.getString("uri_" + restaurantNameStr, "");
-        restaurantImageView.setImageURI(Uri.parse(path));
+        Log.e("restaurantName", restaurantNameStr);
+//        String path = sharedPreferences.getString("uri_" + restaurantNameStr, "");
+//        restaurantImageView.setImageURI(Uri.parse(path));
 
-        Log.d("path _ uri", path);
+//        Log.d("path _ uri", path);
 
     }
 
@@ -78,7 +79,7 @@ public class SelectImageActivity extends Activity {
             editor.putString("uri_" + restaurantNameStr, selectedImageUri.toString());
             editor.commit();
 
-            Log.d("restaurant Name String", restaurantNameStr);
+            Log.d("restaurant name", restaurantNameStr);
             Log.d("uri", selectedImageUri.toString());
         }
     }
