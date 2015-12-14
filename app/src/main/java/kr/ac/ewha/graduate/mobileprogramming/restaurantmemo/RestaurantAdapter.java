@@ -5,14 +5,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 
-/**
- * Created by yunjoo on 2015. 12. 13..
- */
 public class RestaurantAdapter extends ArrayAdapter<RestaurantInfo> {
     private Context context;
     private LayoutInflater mInflater;
@@ -61,28 +59,37 @@ public class RestaurantAdapter extends ArrayAdapter<RestaurantInfo> {
     public long getItemId(int position) {
         return position;
     }
+
     //--------------------------------------------------------
     @Override
     public View getView(int pos, View convertView, ViewGroup parent)
     {
         TextView textView = null;
         RatingBar ratingBar = null;
+        CustomHolder holder = null;
 
         if(convertView == null){
             convertView = mInflater.inflate(R.layout.sample_restaurant_element_view, parent, false);
             textView = (TextView)convertView.findViewById(R.id.restaurantNameEditText);
-            // ratingBar = (RatingBar)convertView.findViewById(R.id.restaurantRating);
+            ratingBar = (RatingBar)convertView.findViewById(R.id.myRatingBar);
 
-            convertView.setTag(textView);
+            holder = new CustomHolder();
+            holder.mTextView = textView;
+            holder.mRatingBar = ratingBar;
+
+            convertView.setTag(holder);
 
         }
         else
         {
-            textView = (TextView)convertView.getTag();
-            // ratingBar = (RatingBar)convertView.getTag();
+            holder = new CustomHolder();
+            holder = (CustomHolder)convertView.getTag();
+            textView = holder.mTextView;
+            ratingBar = holder.mRatingBar;
         }
 
         textView.setText(mData.get(pos).getName());
+        ratingBar.setRating(mData.get(pos).getScore());
 
         return convertView;
     }
