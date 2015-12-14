@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 public class SelectImageActivity extends Activity {
@@ -22,6 +23,7 @@ public class SelectImageActivity extends Activity {
 
     private TextView restaurantName;
     private ImageView restaurantImageView;
+    private RatingBar restaurantRatingBar;
     String restaurantNameStr;
 
     SharedPreferences sharedPreferences;
@@ -39,6 +41,7 @@ public class SelectImageActivity extends Activity {
 
         restaurantName = (TextView) findViewById(R.id.restaurantName);
         restaurantImageView = (ImageView) findViewById(R.id.restaurantImageView);
+        restaurantRatingBar = (RatingBar) findViewById(R.id.selectImageView_restaurantRating);
 
         // get object and set the restaurant name and image view
         init();
@@ -46,6 +49,8 @@ public class SelectImageActivity extends Activity {
 
     private void init() {
         Bundle bundle = getIntent().getExtras();
+        restaurantRatingBar.setRating(Float.parseFloat(bundle.getString("score")));
+
         restaurantNameStr = bundle.getString("name");
         restaurantName.setText(restaurantNameStr);
         restaurantName.setGravity(Gravity.CENTER);
@@ -67,14 +72,11 @@ public class SelectImageActivity extends Activity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == SELECT_IMAGE && resultCode == RESULT_OK) {
             Uri selectedImageUri = data.getData();
-            //restaurantImageView.setImageURI(selectedImageUri);
+            restaurantImageView.setImageURI(selectedImageUri);
 
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.putString("uri_" + restaurantNameStr, selectedImageUri.toString());
             editor.commit();
-
-            String path = sharedPreferences.getString("uri_" + restaurantNameStr, "");
-            restaurantImageView.setImageURI(Uri.parse(path));
 
             Log.d("uri", selectedImageUri.toString());
         }

@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.media.Rating;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
@@ -110,8 +111,10 @@ public class MainActivity extends Activity {
     public void selectImage(View view) {
         Intent intent = new Intent(this, SelectImageActivity.class);
         String restaurantName = ((EditText) view.getRootView().findViewById(R.id.restaurantNameEditText)).getText().toString();
-
+        String restaurantScore = Float.toString(((RatingBar) view.getRootView().findViewById(R.id.myRatingBar)).getRating());
         intent.putExtra("name", restaurantName);
+        intent.putExtra("score", restaurantScore);
+
         startActivity(intent);
     }
 
