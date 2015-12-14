@@ -6,8 +6,10 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.media.Rating;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -31,6 +33,11 @@ public class MainActivity extends Activity {
     RestaurantAdapter mAdapter;
     SharedPreferences sharedPreferences;
 
+    // member var. for DB
+    private DbOpenHelper mDbOpenHelper;
+    private Cursor mCursor;
+    private ArrayList<RestaurantInfo> mRestaurantArray;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,10 +47,17 @@ public class MainActivity extends Activity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_main);
 
+        // DB Create and Open
+        mDbOpenHelper = new DbOpenHelper(this);
+        mDbOpenHelper.open();
+        mRestaurantArray = new ArrayList<RestaurantInfo>();
+        doWhileCursorToArray();
+
         restaurantListView = (ListView) findViewById(R.id.restaurantListView);
 
         /// adapter 생성 및 등록
-        mAdapter = new RestaurantAdapter(this);
+        //mAdapter = new RestaurantAdapter(this);
+        mAdapter = new RestaurantAdapter(this, mRestaurantArray);
         restaurantListView.setAdapter(mAdapter);
 
         /// ListView click Listener 등록
@@ -58,7 +72,36 @@ public class MainActivity extends Activity {
             }
         });
 
+
         sharedPreferences = getPreferences(Context.MODE_PRIVATE);
+    }
+
+
+
+    /**
+     * DB에서 받아온 값을 ArrayList에 Add
+     */
+    private void doWhileCursorToArray(){
+
+        RestaurantInfo newRes = null;
+
+        mCursor = null;
+        mCursor = mDbOpenHelper.getAllColumns();
+        Log.e("Cursor", "COUNT = " + mCursor.getCount());
+
+        while (mCursor.moveToNext()) {
+
+            newRes = new RestaurantInfo(
+                    mCursor.getInt(mCursor.getColumnIndex("_id")),
+                    mCursor.getString(mCursor.getColumnIndex("name")),
+                    Float.parseFloat(mCursor.getString(mCursor.getColumnIndex("score"))),
+                    mCursor.getInt(mCursor.getColumnIndex("checked"))
+            );
+
+            mRestaurantArray.add(newRes);
+        }
+
+        mCursor.close();
     }
 
     public void addRestaurant(View view) {
@@ -93,6 +136,8 @@ public class MainActivity extends Activity {
                 String name = nameBox.getText().toString();
                 float score = rate.getRating();
                 mAdapter.addItem(name, score);
+
+                mDbOpenHelper.insertColumn(name, score);
             }
         });
         dialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -103,9 +148,6 @@ public class MainActivity extends Activity {
         });
 
         dialog.show();
-
-
-
     }
 
     public void selectImage(View view) {

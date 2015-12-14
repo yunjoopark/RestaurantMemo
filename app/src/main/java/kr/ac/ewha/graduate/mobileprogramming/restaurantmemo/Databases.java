@@ -7,16 +7,16 @@ import android.provider.BaseColumns;
  */
 public final class Databases {
     public static final class CreateDB implements BaseColumns {
-        public static final String NAME = "restaurantname";
-        public static final Float SCORE = (float) 0.0;
-        public static final boolean CHECKED = false;
+        public static final String NAME = "name";
+        public static final String SCORE = "score";
+        public static final String CHECKED = "checked";
 
         public static final String _TABLENAME = "restaurant";
         public static final String _CREATE = "create table " + _TABLENAME + "("
                 + _ID + " integer primary key autoincrement, "
                 + NAME + " text not null, "
                 + SCORE + " text not null, "
-                + CHECKED + "INTEGER not null );";
+                + CHECKED + " integer not null );";
 
     }
 }

@@ -13,6 +13,7 @@ import android.util.Log;
 public class RestaurantInfo implements Parcelable{
     public String mName;
     public float mScore;
+    public boolean misChecked;
 
     static final int MAX_SCORE = 5;
     static final String DEFAULT_NAME = "Restaurant";
@@ -21,12 +22,24 @@ public class RestaurantInfo implements Parcelable{
     {
         mName = DEFAULT_NAME;
         mScore = 0;
+        misChecked = false;
     }
 
     public RestaurantInfo(String name, float score)
     {
         mName = name;
         mScore = score;
+        misChecked = false;
+    }
+
+    public RestaurantInfo(int id, String name, float score, int isChecked) {
+        mName = name;
+        mScore = score;
+        if (isChecked == 1) {
+            misChecked = true;
+        } else {
+            misChecked = false;
+        }
     }
 
     protected RestaurantInfo(Parcel in) {

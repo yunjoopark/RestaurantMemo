@@ -24,6 +24,13 @@ public class RestaurantAdapter extends ArrayAdapter<RestaurantInfo> {
         mInflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
+    public RestaurantAdapter(Context context, ArrayList<RestaurantInfo> restaurantInfoArrayList) {
+        super(context, R.layout.sample_restaurant_element_view);
+        this.context = context;
+        this.mData = restaurantInfoArrayList;
+        mInflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+    }
+
     public void addItem()
     {
         RestaurantInfo info = new RestaurantInfo();
