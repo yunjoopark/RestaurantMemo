@@ -1,5 +1,6 @@
 package kr.ac.ewha.graduate.mobileprogramming.restaurantmemo;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
@@ -69,5 +70,13 @@ public class DbOpenHelper {
     // Delete
     public boolean deleteColumn(long id){
         return mDB.delete(Databases.CreateDB._TABLENAME, "_id="+id, null) > 0;
+    }
+
+    // Update DB
+    public boolean updateColumn(long id , String name, float score){
+        ContentValues values = new ContentValues();
+        values.put(Databases.CreateDB.NAME, name);
+        values.put(Databases.CreateDB.SCORE, Float.toString(score));
+        return mDB.update(Databases.CreateDB._TABLENAME, values, "_id=" + id, null) > 0;
     }
 }

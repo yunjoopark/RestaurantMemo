@@ -85,12 +85,20 @@ public class RestaurantAdapter extends ArrayAdapter<RestaurantInfo> {
             convertView = mInflater.inflate(R.layout.sample_restaurant_element_view, parent, false);
             textView = (TextView)convertView.findViewById(R.id.restaurantNameEditText);
             ratingBar = (RatingBar)convertView.findViewById(R.id.myRatingBar);
+            ratingBar.setIsIndicator(false);
+            ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
+
+                @Override
+                public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
+                    // Todo update Database with the new rating
+                }
+
+            });
 
 
             imageView = (ImageView) convertView.findViewById(R.id.selectImage);
             imageView.setTag(new Integer(pos));
             imageView.setOnClickListener(new View.OnClickListener() {
-
                 @Override
                 public void onClick(View view) {
 //                    Toast.makeText(context, "ImageView clicked for the row = " + view.getTag().toString(), Toast.LENGTH_SHORT).show();
