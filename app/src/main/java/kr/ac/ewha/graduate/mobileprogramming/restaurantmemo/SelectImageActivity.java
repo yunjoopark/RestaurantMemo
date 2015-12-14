@@ -24,15 +24,16 @@ public class SelectImageActivity extends Activity {
 
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        setContentView(R.layout.activity_main);
 
         setContentView(R.layout.activity_select_image);
 
+
         restaurantName = (TextView) findViewById(R.id.restaurantName);
         restaurantImageView = (ImageView) findViewById(R.id.restaurantImageView);
-    }
 
-    public void selectImage(View view) {
+        // get object and set the restaurant name and image view
+    }
+    public void selectRestaurantImage(View view) {
         Intent intent = new Intent(Intent.ACTION_PICK);
 
         intent.setType("image/*");

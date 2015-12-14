@@ -104,7 +104,7 @@ public class MainActivity extends Activity {
 
     }
 
-    public void tempButton(View view) {
+    public void selectImage(View view) {
         Intent intent = new Intent(this, SelectImageActivity.class);
         startActivity(intent);
     }

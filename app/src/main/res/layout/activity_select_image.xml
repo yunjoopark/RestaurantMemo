@@ -32,7 +32,7 @@
         android:layout_height="wrap_content"
         android:text="사진선택"
         android:id="@+id/getImgButton"
-        android:onClick="selectImage"
+        android:onClick="selectRestaurantImage"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
