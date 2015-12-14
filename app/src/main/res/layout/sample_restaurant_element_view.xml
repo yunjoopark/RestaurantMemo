@@ -68,12 +68,5 @@
         android:layout_alignLeft="@+id/restaurantNameEditText"
         android:layout_alignStart="@+id/restaurantNameEditText" />
 
-    <EditText
-    android:id="@+id/inputRestaurantName"
-    android:layout_width="fill_parent" android:layout_height="wrap_content" />
-
-    <EditText
-        android:id="@+id/inputRestaurantScore"
-        android:layout_width="fill_parent" android:layout_height="wrap_content" />
 </RelativeLayout>
 

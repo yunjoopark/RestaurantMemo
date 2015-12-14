@@ -33,6 +33,7 @@ public class RestaurantAdapter extends ArrayAdapter<RestaurantInfo> {
         // Adapter에 데이터가 바뀐걸 알리고 리스트뷰에 다시 그린다.
         notifyDataSetChanged();
     }
+
     public void addItem(String name, float rate)
     {
         RestaurantInfo info = new RestaurantInfo(name, rate);
@@ -60,6 +61,7 @@ public class RestaurantAdapter extends ArrayAdapter<RestaurantInfo> {
     public long getItemId(int position) {
         return position;
     }
+    
     //--------------------------------------------------------
     @Override
     public View getView(int pos, View convertView, ViewGroup parent)
