@@ -72,6 +72,30 @@ public class MainActivity extends Activity {
             }
         });
 
+        /**
+         * ListView의 Item을 롱클릭 할때 호출 ( 선택한 아이템의 DB 컬럼과 Data를 삭제 한다. )
+         */
+        restaurantListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                Log.e("POSITION: ", "position = " + position);
+
+                boolean result = mDbOpenHelper.deleteColumn(position + 1);
+                Log.e("RESULT", "result = " + result);
+
+                if(result){
+                    mRestaurantArray.remove(position);
+                    mAdapter.setArrayList(mRestaurantArray);
+                    mAdapter.notifyDataSetChanged();
+                }else {
+                    Toast.makeText(getApplicationContext(), "INDEX를 확인해 주세요.",
+                            Toast.LENGTH_LONG).show();
+                }
+
+                return false;
+
+            }
+        });
 
         sharedPreferences = getPreferences(Context.MODE_PRIVATE);
     }

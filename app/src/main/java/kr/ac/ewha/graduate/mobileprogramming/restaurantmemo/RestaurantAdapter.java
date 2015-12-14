@@ -100,4 +100,8 @@ public class RestaurantAdapter extends ArrayAdapter<RestaurantInfo> {
 
         return convertView;
     }
+
+    public void setArrayList(ArrayList<RestaurantInfo> arrays){
+        this.mData = arrays;
+    }
 }

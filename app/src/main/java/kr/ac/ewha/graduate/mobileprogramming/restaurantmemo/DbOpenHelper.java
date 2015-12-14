@@ -57,11 +57,17 @@ public class DbOpenHelper {
         return cursor;
     }
 
+    // Insert
     public void insertColumn(String name, float score) {
         String resName = name;
         String resScore = Float.toString(score);
         String sql = "insert into restaurant values(null, '" + resName + "', " + resScore + ", 0);";
 
         mDB.execSQL(sql);
+    }
+
+    // Delete
+    public boolean deleteColumn(long id){
+        return mDB.delete(Databases.CreateDB._TABLENAME, "_id="+id, null) > 0;
     }
 }
