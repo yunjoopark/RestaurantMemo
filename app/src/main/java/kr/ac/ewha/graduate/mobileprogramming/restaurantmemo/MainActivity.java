@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,6 +28,7 @@ public class MainActivity extends Activity {
     ListView restaurantListView;
 
     RestaurantAdapter mAdapter;
+    SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,10 +57,11 @@ public class MainActivity extends Activity {
             }
         });
 
+        sharedPreferences = getPreferences(Context.MODE_PRIVATE);
     }
 
     public void addRestaurant(View view) {
-        final RestaurantInfo newRes = new RestaurantInfo();
+//        final RestaurantInfo newRes = new RestaurantInfo();
 
         AlertDialog.Builder dialog = new AlertDialog.Builder(this);
         dialog.setTitle("Set Restaurant Name & Score");
@@ -106,6 +109,9 @@ public class MainActivity extends Activity {
 
     public void selectImage(View view) {
         Intent intent = new Intent(this, SelectImageActivity.class);
+        String restaurantName = ((EditText) view.getRootView().findViewById(R.id.restaurantNameEditText)).getText().toString();
+
+        intent.putExtra("name", restaurantName);
         startActivity(intent);
     }
 
