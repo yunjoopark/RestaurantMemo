@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -49,6 +50,11 @@ public class SelectImageActivity extends Activity {
         restaurantName.setText(restaurantNameStr);
         restaurantName.setGravity(Gravity.CENTER);
 
+        String path = sharedPreferences.getString("uri_" + restaurantNameStr, "");
+        restaurantImageView.setImageURI(Uri.parse(path));
+
+        Log.d("path _ uri", path);
+
     }
 
     public void selectRestaurantImage(View view) {
@@ -61,10 +67,16 @@ public class SelectImageActivity extends Activity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == SELECT_IMAGE && resultCode == RESULT_OK) {
             Uri selectedImageUri = data.getData();
-            restaurantImageView.setImageURI(selectedImageUri);
+            //restaurantImageView.setImageURI(selectedImageUri);
 
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.putString("uri_" + restaurantNameStr, selectedImageUri.toString());
+            editor.commit();
+
+            String path = sharedPreferences.getString("uri_" + restaurantNameStr, "");
+            restaurantImageView.setImageURI(Uri.parse(path));
+
+            Log.d("uri", selectedImageUri.toString());
         }
     }
 }
