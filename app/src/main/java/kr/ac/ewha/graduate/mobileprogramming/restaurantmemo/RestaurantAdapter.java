@@ -135,6 +135,21 @@ public class RestaurantAdapter extends ArrayAdapter<RestaurantInfo> {
             textView = holder.mTextView;
             ratingBar = holder.mRatingBar;
             imageView = holder.mImageView;
+
+            imageView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Toast.makeText(context, "ImageView clicked for the row = " + view.getTag().toString(), Toast.LENGTH_SHORT).show();
+
+                    Log.d("onItemClick", "ImageView clicked for the row = " + view.getTag().toString());
+                    Intent intent = new Intent(context, SelectImageActivity.class);
+                    String restaurantName = mData.get(Integer.parseInt(view.getTag().toString())).getName();
+                    String restaurantScore = Float.toString(mData.get(Integer.parseInt(view.getTag().toString())).getScore());
+                    intent.putExtra("name", restaurantName);
+                    intent.putExtra("score", restaurantScore);
+                    context.startActivity(intent);
+                }
+            });
         }
 
         checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -153,20 +168,7 @@ public class RestaurantAdapter extends ArrayAdapter<RestaurantInfo> {
 
 
         // TODO do not work... for newly added element
-        imageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-              Toast.makeText(context, "ImageView clicked for the row = " + view.getTag().toString(), Toast.LENGTH_SHORT).show();
 
-                Log.d("onItemClick", "ImageView clicked for the row = " + view.getTag().toString());
-                Intent intent = new Intent(context, SelectImageActivity.class);
-                String restaurantName = mData.get(Integer.parseInt(view.getTag().toString())).getName();
-                String restaurantScore = Float.toString(mData.get(Integer.parseInt(view.getTag().toString())).getScore());
-                intent.putExtra("name", restaurantName);
-                intent.putExtra("score", restaurantScore);
-                context.startActivity(intent);
-            }
-        });
 
 
         return convertView;

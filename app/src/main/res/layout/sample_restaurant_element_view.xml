@@ -56,7 +56,6 @@
         android:layout_toRightOf="@id/restaurantCheckbox" android:layout_toLeftOf="@id/selectImage"
         android:gravity="center_vertical" android:singleLine="true"
         android:hint="Restaurant name"
-        android:focusable="false"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <RatingBar
