@@ -4,18 +4,20 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
+
+import java.io.BufferedInputStream;
+import java.io.InputStream;
 
 public class SelectImageActivity extends Activity {
 
@@ -55,11 +57,13 @@ public class SelectImageActivity extends Activity {
         restaurantName.setText(restaurantNameStr);
         restaurantName.setGravity(Gravity.CENTER);
 
-        Log.e("restaurantName", restaurantNameStr);
-//        String path = sharedPreferences.getString("uri_" + restaurantNameStr, "");
-//        restaurantImageView.setImageURI(Uri.parse(path));
+//        Log.e("restaurantName", restaurantNameStr);
+        String path = sharedPreferences.getString("uri_" + restaurantNameStr, "");
+//        Bitmap bm = MediaStore.Images.Media.getBitmap(getContentResolver(), Uri.parse(path));
+//        restaurantImageView.setImageBitmap(bm);
 
-//        Log.d("path _ uri", path);
+        restaurantImageView.setImageURI(Uri.parse(path));
+        Log.d("restaurant_image uri", restaurantNameStr + path);
 
     }
 
@@ -80,7 +84,7 @@ public class SelectImageActivity extends Activity {
             editor.commit();
 
             Log.d("restaurant name", restaurantNameStr);
-            Log.d("uri", selectedImageUri.toString());
+            Log.d("restaurant_image uri:", selectedImageUri.toString());
         }
     }
 }

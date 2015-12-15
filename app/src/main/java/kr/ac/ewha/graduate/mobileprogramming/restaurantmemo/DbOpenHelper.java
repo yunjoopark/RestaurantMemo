@@ -58,27 +58,38 @@ public class DbOpenHelper {
         return cursor;
     }
 
-//    // Insert
-//    public void insertColumn(String name, float score) {
-//        String resName = name;
-//        String resScore = Float.toString(score);
-//        String sql = "insert into restaurant values(null, '" + resName + "', " + resScore + ", 0);";
-//
-//        mDB.execSQL(sql);
-//    }
+    // 이름 검색 하기 (rawQuery)
+    public Cursor getMatchName(String name){
+        Cursor cursor = mDB.rawQuery( "select * from restaurant where name=" + "'" + name + "'" , null);
+        return cursor;
+    }
+
+    // Insert
+    public void Insert(String name, float score) {
+        String resName = name;
+        String resScore = Float.toString(score);
+        String sql = "insert into restaurant values(null, '" + resName + "', " + resScore + ", 0);";
+
+        mDB.execSQL(sql);
+    }
 
     // Insert DB
-    public long Insert(String name, float score){
-        ContentValues values = new ContentValues();
-        values.put(Databases.CreateDB.NAME, name);
-        values.put(Databases.CreateDB.SCORE, Float.toString(score));
-        values.put(Databases.CreateDB.CHECKED, "0");
-        return mDB.insert(Databases.CreateDB._TABLENAME, null, values); /// table, ColumnName, Data
-    }
+//    public long Insert(String name, float score){
+//        ContentValues values = new ContentValues();
+//        values.put(Databases.CreateDB.NAME, name);
+//        values.put(Databases.CreateDB.SCORE, Float.toString(score));
+//        values.put(Databases.CreateDB.CHECKED, "0");
+//        return mDB.insert(Databases.CreateDB._TABLENAME, null, values); /// table, ColumnName, Data
+//    }
 
     // Delete
     public boolean delete(long id){
         return mDB.delete(Databases.CreateDB._TABLENAME, "_id = " + id, null) > 0;
+    }
+
+    // Delete
+    public boolean delete(String name){
+        return mDB.delete(Databases.CreateDB._TABLENAME, "name = " + name, null) > 0;
     }
 
     // Update DB

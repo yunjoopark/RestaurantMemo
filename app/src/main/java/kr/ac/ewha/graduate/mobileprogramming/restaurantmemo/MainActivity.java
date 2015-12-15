@@ -78,7 +78,12 @@ public class MainActivity extends Activity {
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 Log.e("POSITION: ", "position = " + position);
 
-                boolean result = mDbOpenHelper.delete(position + 1);
+                Cursor mCursor = mDbOpenHelper.getMatchName(mAdapter.getItem(position).getName());
+                int deletePosition = mCursor.getColumnIndex("_id");
+//                boolean result = mDbOpenHelper.delete(position + 1);
+                Log.e("Name(id): ", mAdapter.getItem(position).getName() + Integer.toString(deletePosition));
+
+                boolean result = mDbOpenHelper.delete(mCursor.getColumnIndex("name"));
                 Log.e("RESULT", "result = " + result);
 
                 if(result){
@@ -175,6 +180,18 @@ public class MainActivity extends Activity {
         });
 
         dialog.show();
+    }
+
+    public void deleteAllColumns(View view) {
+        int count = mAdapter.getCount();
+        Log.e("count", Integer.toString(count));
+        while (count > 0) {
+            int pos = count -1;
+            Log.e("count-pos", Integer.toString(pos));
+            mAdapter.delItem(pos);
+            count--;
+        }
+        mDbOpenHelper.deleteAll();
     }
 
     @Override
