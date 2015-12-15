@@ -32,7 +32,7 @@ public class RestaurantInfo implements Parcelable{
         misChecked = false;
     }
 
-    public RestaurantInfo(int id, String name, float score, int isChecked) {
+    public RestaurantInfo(String name, float score, int isChecked) {
         mName = name;
         mScore = score;
         if (isChecked == 1) {

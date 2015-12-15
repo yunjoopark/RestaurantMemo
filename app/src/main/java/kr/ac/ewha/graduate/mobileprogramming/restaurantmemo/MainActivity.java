@@ -51,16 +51,18 @@ public class MainActivity extends Activity {
         mDbOpenHelper = new DbOpenHelper(this);
         mDbOpenHelper.open();
         mRestaurantArray = new ArrayList<RestaurantInfo>();
-        doWhileCursorToArray();
+
 
         restaurantListView = (ListView) findViewById(R.id.restaurantListView);
 
         /// adapter 생성 및 등록
-        //mAdapter = new RestaurantAdapter(this);
-        mAdapter = new RestaurantAdapter(this, mRestaurantArray);
+        mAdapter = new RestaurantAdapter(this);
+//        mAdapter = new RestaurantAdapter(this, mRestaurantArray);
+
+        doWhileCursorToArray();
+
         restaurantListView.setAdapter(mAdapter);
-
-
+        
         restaurantListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -107,7 +109,7 @@ public class MainActivity extends Activity {
      */
     private void doWhileCursorToArray(){
 
-        RestaurantInfo newRes = null;
+//        RestaurantInfo newRes = null;
 
         mCursor = null;
         mCursor = mDbOpenHelper.getAllColumns();
@@ -115,14 +117,17 @@ public class MainActivity extends Activity {
 
         while (mCursor.moveToNext()) {
 
-            newRes = new RestaurantInfo(
-                    mCursor.getInt(mCursor.getColumnIndex("_id")),
-                    mCursor.getString(mCursor.getColumnIndex("name")),
-                    Float.parseFloat(mCursor.getString(mCursor.getColumnIndex("score"))),
-                    mCursor.getInt(mCursor.getColumnIndex("checked"))
-            );
+            String name = mCursor.getString(mCursor.getColumnIndex("name"));
+            Float score = Float.parseFloat(mCursor.getString(mCursor.getColumnIndex("score")));
+            int isChecked = mCursor.getInt(mCursor.getColumnIndex("checked"));
+            mAdapter.addItem(name, score, isChecked);
 
-            mRestaurantArray.add(newRes);
+//            newRes = new RestaurantInfo(
+//                    mCursor.getInt(mCursor.getColumnIndex("_id")),
+//
+//                    Float.parseFloat(mCursor.getString(mCursor.getColumnIndex("score"))),
+//            );
+//            mRestaurantArray.add(newRes);
         }
 
         mCursor.close();

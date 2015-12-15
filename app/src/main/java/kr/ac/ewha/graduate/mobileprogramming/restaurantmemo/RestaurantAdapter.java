@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RatingBar;
@@ -48,6 +49,14 @@ public class RestaurantAdapter extends ArrayAdapter<RestaurantInfo> {
     public void addItem(String name, float rate)
     {
         RestaurantInfo info = new RestaurantInfo(name, rate);
+        mData.add(info);
+        // Adapter에 데이터가 바뀐걸 알리고 리스트뷰에 다시 그린다.
+        notifyDataSetChanged();
+    }
+
+    public void addItem(String name, float rate, int isChecked)
+    {
+        RestaurantInfo info = new RestaurantInfo(name, rate, isChecked);
         mData.add(info);
         // Adapter에 데이터가 바뀐걸 알리고 리스트뷰에 다시 그린다.
         notifyDataSetChanged();
@@ -126,9 +135,20 @@ public class RestaurantAdapter extends ArrayAdapter<RestaurantInfo> {
             imageView = holder.mImageView;
         }
 
+        checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    // perform logic
+                }
+
+            }
+        });
+
+
         checkBox.setChecked(mData.get(pos).IsChecked());
         textView.setText(mData.get(pos).getName());
         ratingBar.setRating(mData.get(pos).getScore());
+
 
         // TODO do not work... for newly added element
         imageView.setOnClickListener(new View.OnClickListener() {
