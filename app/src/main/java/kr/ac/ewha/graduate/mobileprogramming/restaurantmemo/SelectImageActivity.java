@@ -2,11 +2,13 @@ package kr.ac.ewha.graduate.mobileprogramming.restaurantmemo;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.CursorLoader;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.BitmapFactory;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
@@ -15,9 +17,6 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
-
-import java.io.BufferedInputStream;
-import java.io.InputStream;
 
 public class SelectImageActivity extends Activity {
 
@@ -78,13 +77,33 @@ public class SelectImageActivity extends Activity {
         if (requestCode == SELECT_IMAGE && resultCode == RESULT_OK) {
             Uri selectedImageUri = data.getData();
             restaurantImageView.setImageURI(selectedImageUri);
+            String imgPath= getRealPathFromURI(this, selectedImageUri);
 
             SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putString("uri_" + restaurantNameStr, selectedImageUri.toString());
+//            editor.putString("uri_" + restaurantNameStr, selectedImageUri.toString());
+            editor.putString("uri_" + restaurantNameStr, imgPath);
             editor.commit();
 
             Log.d("restaurant name", restaurantNameStr);
             Log.d("restaurant_image uri:", selectedImageUri.toString());
         }
+    }
+
+    private static String getRealPathFromURI(Context context, Uri contentUri) {
+        String[] proj = { MediaStore.Images.Media.DATA };
+        String result = null;
+
+        CursorLoader cursorLoader = new CursorLoader(
+                context,
+                contentUri, proj, null, null, null);
+        Cursor cursor = cursorLoader.loadInBackground();
+
+        if(cursor != null){
+            int column_index =
+                    cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+            cursor.moveToFirst();
+            result = cursor.getString(column_index);
+        }
+        return result;
     }
 }
