@@ -49,14 +49,15 @@
         android:tint="#bbbbbb"
         android:tintMode="screen" />
 
-    <EditText
-        android:id="@+id/restaurantNameEditText"
+    <TextView
+        android:id="@+id/restaurantNameTextView"
         android:layout_width="fill_parent" android:layout_height="wrap_content"
         android:layout_marginLeft="6dp"
         android:layout_toRightOf="@id/restaurantCheckbox" android:layout_toLeftOf="@id/selectImage"
         android:gravity="center_vertical" android:singleLine="true"
         android:hint="Restaurant name"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:editable="false" />
 
     <RatingBar
         android:id="@+id/myRatingBar"
@@ -66,9 +67,9 @@
         android:layout_marginLeft="6dp"
         android:layout_marginBottom="10dp"
         android:focusable="false"
-        android:layout_below="@+id/restaurantNameEditText"
-        android:layout_alignLeft="@+id/restaurantNameEditText"
-        android:layout_alignStart="@+id/restaurantNameEditText" />
+        android:layout_below="@+id/restaurantNameTextView"
+        android:layout_alignLeft="@+id/restaurantNameTextView"
+        android:layout_alignStart="@+id/restaurantNameTextView" />
 
 </RelativeLayout>
 

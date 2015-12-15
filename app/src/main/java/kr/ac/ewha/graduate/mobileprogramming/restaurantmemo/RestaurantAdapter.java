@@ -10,7 +10,6 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -102,7 +101,7 @@ public class RestaurantAdapter extends ArrayAdapter<RestaurantInfo> {
         if(convertView == null){
             convertView = mInflater.inflate(R.layout.sample_restaurant_element_view, parent, false);
             checkBox = (CheckBox)convertView.findViewById(R.id.restaurantCheckbox);
-            textView = (TextView)convertView.findViewById(R.id.restaurantNameEditText);
+            textView = (TextView)convertView.findViewById(R.id.restaurantNameTextView);
             ratingBar = (RatingBar)convertView.findViewById(R.id.myRatingBar);
             ratingBar.setIsIndicator(false);
             ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
