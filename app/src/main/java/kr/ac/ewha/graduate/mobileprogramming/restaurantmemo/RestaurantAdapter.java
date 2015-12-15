@@ -65,6 +65,8 @@ public class RestaurantAdapter extends ArrayAdapter<RestaurantInfo> {
     public void delItem(int pos)
     {
         // Todo del item
+        mData.remove(pos);
+        notifyDataSetChanged();
     }
 
     //--------------------------------------------------------

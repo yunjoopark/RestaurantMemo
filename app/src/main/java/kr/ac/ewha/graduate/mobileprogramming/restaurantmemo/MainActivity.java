@@ -36,8 +36,6 @@ public class MainActivity extends Activity {
     // member var. for DB
     private DbOpenHelper mDbOpenHelper;
     private Cursor mCursor;
-    private ArrayList<RestaurantInfo> mRestaurantArray;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,8 +48,6 @@ public class MainActivity extends Activity {
         // DB Create and Open
         mDbOpenHelper = new DbOpenHelper(this);
         mDbOpenHelper.open();
-        mRestaurantArray = new ArrayList<RestaurantInfo>();
-
 
         restaurantListView = (ListView) findViewById(R.id.restaurantListView);
 
@@ -62,7 +58,7 @@ public class MainActivity extends Activity {
         doWhileCursorToArray();
 
         restaurantListView.setAdapter(mAdapter);
-        
+
         restaurantListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -86,9 +82,10 @@ public class MainActivity extends Activity {
                 Log.e("RESULT", "result = " + result);
 
                 if(result){
-                    mRestaurantArray.remove(position);
-                    mAdapter.setArrayList(mRestaurantArray);
-                    mAdapter.notifyDataSetChanged();
+                    mAdapter.delItem(position);
+//                    mRestaurantArray.remove(position);
+//                    mAdapter.setArrayList(mRestaurantArray);
+//                    mAdapter.notifyDataSetChanged();
                 }else {
                     Toast.makeText(getApplicationContext(), "INDEX를 확인해 주세요.",
                             Toast.LENGTH_LONG).show();
