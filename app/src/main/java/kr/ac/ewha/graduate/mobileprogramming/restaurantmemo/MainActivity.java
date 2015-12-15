@@ -80,7 +80,7 @@ public class MainActivity extends Activity {
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 Log.e("POSITION: ", "position = " + position);
 
-                boolean result = mDbOpenHelper.deleteColumn(position + 1);
+                boolean result = mDbOpenHelper.delete(position + 1);
                 Log.e("RESULT", "result = " + result);
 
                 if(result){
@@ -160,7 +160,7 @@ public class MainActivity extends Activity {
                 String name = nameBox.getText().toString();
                 float score = rate.getRating();
 
-                mDbOpenHelper.insertColumn(name, score);
+                mDbOpenHelper.Insert(name, score);
                 mAdapter.addItem(name, score);
 
             }

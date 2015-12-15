@@ -53,6 +53,11 @@ public class RestaurantAdapter extends ArrayAdapter<RestaurantInfo> {
         notifyDataSetChanged();
     }
 
+    public void delItem(int pos)
+    {
+        // Todo del item
+    }
+
     //--------------------------------------------------------
     @Override
     public int getCount() {

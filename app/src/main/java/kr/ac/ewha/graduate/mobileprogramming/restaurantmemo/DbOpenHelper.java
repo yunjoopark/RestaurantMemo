@@ -68,21 +68,21 @@ public class DbOpenHelper {
 //    }
 
     // Insert DB
-    public long insertColumn(String name, float score){
+    public long Insert(String name, float score){
         ContentValues values = new ContentValues();
         values.put(Databases.CreateDB.NAME, name);
         values.put(Databases.CreateDB.SCORE, Float.toString(score));
         values.put(Databases.CreateDB.CHECKED, "0");
-        return mDB.insert(Databases.CreateDB._TABLENAME, null, values);
+        return mDB.insert(Databases.CreateDB._TABLENAME, null, values); /// table, ColumnName, Data
     }
 
     // Delete
-    public boolean deleteColumn(long id){
+    public boolean delete(long id){
         return mDB.delete(Databases.CreateDB._TABLENAME, "_id = " + id, null) > 0;
     }
 
     // Update DB
-    public boolean updateColumn(long id , String name, float score){
+    public boolean Update(long id , String name, float score){
         ContentValues values = new ContentValues();
         values.put(Databases.CreateDB.NAME, name);
         values.put(Databases.CreateDB.SCORE, Float.toString(score));
